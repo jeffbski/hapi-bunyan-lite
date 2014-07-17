@@ -1,6 +1,6 @@
 {
   "name": "hapi-bunyan-lite",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Basic Hapi Bunyan integration",
   "main": "hapi-bunyan-lite",
   "private": true,
