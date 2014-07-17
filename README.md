@@ -51,3 +51,7 @@ server.pack.register(plugins, function (err) {
   server.start();
 });
 ```
+
+## License
+
+MIT
