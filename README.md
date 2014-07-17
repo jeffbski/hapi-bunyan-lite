@@ -10,13 +10,15 @@ Minimalistic Bunyan integration for Hapi - forwards Hapi log events to bunyan
 ## Installation
 
 ```bash
-npm install --save https://github.com/jeffbski/hapi-bunyan-lite/archive/v0.0.1.tar.gz
+npm install --save https://github.com/jeffbski/hapi-bunyan-lite/archive/v0.0.2.tar.gz
 ```
 
 ## Usage
 
 ```javascript
 var bunyan = require('bunyan');
+var Hapi = require('hapi');
+
 var myRootLogger = bunyan.createLogger({
   name: 'myapp',
   stream: process.stdout,
@@ -29,9 +31,23 @@ var plugins = [{
     defaultLogLevel: 'info'
   }
 }];
-server.pack.register(plugins, cb);
-// logging with hapi log method, forwarded to bunyan
-server.log(['warn'], 'logging at warn level');
-server.log(['mytag'], 'logging at default level');
-request.log(['error'], 'logging at error level');
+
+var server = Hapi.createServer('localhost', 3000);
+
+var routes = [
+  { method: 'GET', path: '/', handler: function (request, reply) {
+    request.log(['warn'], 'request at warn');
+    request.log(['mytag'], 'request at default');
+    reply('Hello World');
+  }}
+];
+server.route(routes);
+
+server.pack.register(plugins, function (err) {
+  if (err) { throw err; }
+  console.log('hello');
+  server.log(['debug'], 'server logging at debug');
+  server.log(['mytag'], 'server logging at default');
+  server.start();
+});
 ```
