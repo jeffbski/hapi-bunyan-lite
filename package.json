@@ -1,0 +1,25 @@
+{
+  "name": "hapi-bunyan-lite",
+  "version": "0.0.1",
+  "description": "Basic Hapi Bunyan integration",
+  "main": "hapi-bunyan-lite",
+  "private": true,
+  "author": "Jeff Barczewski <jeff.barczewski@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/jeffbski/hapi-bunyan-lite.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/jeffbski/hapi-bunyan-lite/raw/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "joi": "^4.6.1"
+  },
+  "devDependencies": {
+    "bunyan": "^0.23.1",
+    "hapi": "^6.2.0"
+  }
+}
