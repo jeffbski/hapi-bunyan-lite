@@ -13,7 +13,8 @@ var optionsSchema = Joi.object().keys({
   logger: Joi.object().required(),
   defaultLogLevel: Joi.string()
     .valid(logLevels)
-    .default('info')
+    .default('info'),
+  preProcessData: Joi.func(),
 });
 
 exports.register = function (plugin, options, next) {
@@ -21,12 +22,21 @@ exports.register = function (plugin, options, next) {
     if (err) { return next(err); }
 
     var rootLogger = opts.logger;
+
     function logEvent(request, event, tags) {
-      var level = findLogLevelFromTags(tags, opts.defaultLogLevel);
+
       var objLog = {
         data: event.data
       };
+
+      if (options.preProcessData) {
+        options.preProcessData(objLog, event, tags, request);
+      }
+
+      var level = findLogLevelFromTags(tags, opts.defaultLogLevel);
+
       if (request) { objLog.requestId = request.id; }
+
       rootLogger[level](objLog, event.tags);
     }
 
