@@ -24,11 +24,20 @@ var myRootLogger = bunyan.createLogger({
   stream: process.stdout,
   level: 'debug'
 });
+// This is an optional extra function you can create,
+// It will allow you to change things before its pushed to the streams.
+var optionalPreProccessData = function (objLog, event, tags, request) {
+
+  // Here we add the tag "new-tag" to everything.
+  // But you can make it do more interesting things.
+  tags.push('new-tag');
+}
 var plugins = [{
   plugin: require('hapi-bunyan-lite'),
   options: {
     logger: myRootLogger,
-    defaultLogLevel: 'info'
+    defaultLogLevel: 'info',
+    preProcessData: optionalPreProccessData
   }
 }];
 
