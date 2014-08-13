@@ -8,11 +8,22 @@ var myRootLogger = bunyan.createLogger({
   stream: process.stdout,
   level: 'debug'
 });
+
+// Optional preprocess function which allows you to modify or
+// augment log object and related info before it gets logged
+var optionalPreProccessDataFn = function (objLog, event, tags, request) {
+  // adding property to objLog, currently contains `.data` with log data
+  objLog.foo = 'bar';
+  // Here we add the tag "new-tag" to everything.
+  event.tags.push('new-tag');
+};
+
 var plugins = [{
   plugin: require('../'), // require('hapi-bunyan-lite'),
   options: {
     logger: myRootLogger,
-    defaultLogLevel: 'info'
+    defaultLogLevel: 'info',
+    preProcessData: optionalPreProccessDataFn
   }
 }];
 

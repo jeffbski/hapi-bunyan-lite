@@ -10,7 +10,7 @@ Minimalistic Bunyan integration for Hapi - forwards Hapi log events to bunyan
 ## Installation
 
 ```bash
-npm install --save https://github.com/jeffbski/hapi-bunyan-lite/archive/v0.1.0.tar.gz
+npm install --save https://github.com/jeffbski/hapi-bunyan-lite/archive/v0.1.1.tar.gz
 ```
 
 ## Usage
@@ -27,12 +27,12 @@ var myRootLogger = bunyan.createLogger({
 
 // Optional preprocess function which allows you to modify or
 // augment log object and related info before it gets logged
-// It will allow you to change things before its pushed to the streams.
 var optionalPreProccessDataFn = function (objLog, event, tags, request) {
+  // adding property to objLog, currently contains `.data` with log data
+  objLog.foo = 'bar';
   // Here we add the tag "new-tag" to everything.
-  // But you can make it do more interesting things.
-  tags.push('new-tag');
-}
+  event.tags.push('new-tag');
+};
 
 var plugins = [{
   plugin: require('hapi-bunyan-lite'),
