@@ -17,7 +17,7 @@ var optionsSchema = Joi.object().keys({
   preProcessData: Joi.func(),
 });
 
-exports.register = function (plugin, options, next) {
+exports.register = function (server, options, next) {
   Joi.validate(options, optionsSchema, function (err, opts) {
     if (err) { return next(err); }
 
@@ -40,7 +40,7 @@ exports.register = function (plugin, options, next) {
       rootLogger[level](objLog, event.tags);
     }
 
-    plugin.events
+    server
       .on('log', logEvent.bind(null, null)) // request is null
       .on('request', logEvent);
 
