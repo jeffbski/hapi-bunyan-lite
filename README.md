@@ -10,7 +10,7 @@ Minimalistic Bunyan integration for Hapi - forwards Hapi log events to bunyan
 ## Installation
 
 ```bash
-npm install --save https://github.com/jeffbski/hapi-bunyan-lite/archive/v0.1.1.tar.gz
+npm install --save https://github.com/jeffbski/hapi-bunyan-lite/archive/v0.2.0.tar.gz
 ```
 
 ## Usage
